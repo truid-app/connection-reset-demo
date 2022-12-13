@@ -1,0 +1,19 @@
+services:
+  demo:
+    image: demo:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "db-demo"
+    restart: always
+    environment:
+      - DB_CONNECTION_URL=r2dbc:postgresql://db-demo:5442/db
+  db-demo:
+    image: postgres:alpine3.15
+    ports:
+      - "5442:5442"
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=db
+      - PGPORT=5442

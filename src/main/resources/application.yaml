@@ -1,0 +1,34 @@
+server:
+  port: ${PORT:8080}
+
+second:
+  url: http://localhost:8080/demo/second
+
+spring:
+  r2dbc:
+    url: ${DB_CONNECTION_URL:r2dbc:postgresql://localhost:5432/db}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:password}
+    pool:
+      enabled: true
+      initial-size: 1
+      min-idle: 0
+      max-size: 50
+      max-idle-time: 80s
+      max-life-time: 2m
+      max-acquire-time: 30s
+      max-create-connection-time: 30s
+      background-eviction-interval: 30s
+  cloud:
+    gcp:
+      sql:
+        enabled: false
+
+logging:
+  level:
+    org.springframework.r2dbc: DEBUG
+    org.springframework.web: TRACE
+    reactor.netty: DEBUG
+    io.r2dbc: TRACE
+    com.google.api.client.http: DEBUG
+    com.google.cloud.sql.core: TRACE
