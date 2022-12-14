@@ -20,3 +20,26 @@ Invoke the endpoints:
 ```bash
 $ curl -v http://localhost:8080/demo/first
 ```
+
+## Run in GCP
+
+1. Create a Storage Bucket to store the terraform state, and update in `infra/backend.tf`
+2. Enter values in `infra/env.tfvars`
+3. Run the following commands:
+
+```bash
+$ ./mvnw package -Ddocker.arch=amd64
+$ docker tag demo:latest $DOCKER_REPOSITORY/demo:latest
+$ docker push $DOCKER_REPOSITORY/demo:latest
+
+$ cd infra
+$ terraform apply --var-file env.tfvars
+```
+
+4. Set up a DNS record for the domain to point to the LB IP
+
+Invoke the endpoints:
+
+```bash
+$ curl -v https://$DOMAIN/demo/first
+```
