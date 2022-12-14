@@ -43,3 +43,16 @@ Invoke the endpoints:
 ```bash
 $ curl -v https://$DOMAIN/demo/first
 ```
+
+## Trigger the connection reset
+
+```bash
+while true; do
+  sleep $[ ( $RANDOM % 3 )  + 1 ]s
+  curl -v https://demo.dev.veritru.me/demo/first
+  sleep $[ ( $RANDOM % 30 )  + 1 ]s
+  curl -v https://demo.dev.veritru.me/demo/first
+  sleep $[ ( $RANDOM % 300 )  + 1 ]s
+  curl -v https://demo.dev.veritru.me/demo/first
+done
+```
